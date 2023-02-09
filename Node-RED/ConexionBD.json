@@ -1,0 +1,117 @@
+[
+    {
+        "id": "f03946acb969824c",
+        "type": "tab",
+        "label": "Conexión con BD",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "656e813525934a38",
+        "type": "mysql",
+        "z": "f03946acb969824c",
+        "mydb": "2be10ca472e52e5b",
+        "name": "Domotica",
+        "x": 680,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5cae1cd340f217fe",
+        "type": "function",
+        "z": "f03946acb969824c",
+        "name": "",
+        "func": "// Variables\nvar dom = JSON.parse(msg.payload);\nvar temp = dom.t;\nvar hum = dom.h;\nvar vol = dom.v;\nvar dist = dom.d;\nvar vel = dom.vel;\nvar id = dom.i;\n\n\n// Formato DATETIME\nvar dateNow = new Date();\nvar timeAsString = dateNow.toLocaleTimeString();\nvar tzoffset = dateNow.getTimezoneOffset() * 60000;\nvar fecha = (new Date(dateNow - tzoffset)).toISOString().slice(0, -14);\nvar fechaHora = fecha + \" \" + timeAsString;\n\n\n// Almacenar la información en la BD\nmsg.topic = \"INSERT INTO temperatura VALUES(\" + id + \", '\"\n            + fechaHora + \"', \" + temp + \", \" + hum + \");\" + \n            \n            \"INSERT INTO luz VALUES(\" + id + \", '\"\n            + fechaHora + \"', \" + vol + \");\" +\n            \n            \"INSERT INTO movimiento VALUES(\" + id + \", '\"\n            + fechaHora + \"', \" + dist + \");\" +\n            \n            \"INSERT INTO servomotor VALUES(\" + id + \", '\"\n            + fechaHora + \"', \" + vel + \");\"\n            \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 140,
+        "wires": [
+            [
+                "1a6a8e23cd19929c",
+                "656e813525934a38"
+            ]
+        ]
+    },
+    {
+        "id": "1a6a8e23cd19929c",
+        "type": "debug",
+        "z": "f03946acb969824c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "89567b64e64de289",
+        "type": "mqtt in",
+        "z": "f03946acb969824c",
+        "name": "",
+        "topic": "TopicoOutEquipo5",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5be7aaa95006a637",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 140,
+        "wires": [
+            [
+                "5cae1cd340f217fe"
+            ]
+        ]
+    },
+    {
+        "id": "2be10ca472e52e5b",
+        "type": "MySQLdatabase",
+        "name": "BD Domotica",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "domotica_eq5",
+        "tz": "",
+        "charset": "UTF8",
+        "credentials": {}
+    },
+    {
+        "id": "5be7aaa95006a637",
+        "type": "mqtt-broker",
+        "name": "MQTT 01",
+        "broker": "broker.mqtt-dashboard.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    }
+]

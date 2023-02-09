@@ -1,0 +1,177 @@
+[
+    {
+        "id": "ea2d1ad1ea168d31",
+        "type": "tab",
+        "label": "Recibido en MQTT",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "64e505c3ebfdd621",
+        "type": "inject",
+        "z": "ea2d1ad1ea168d31",
+        "name": "Inject",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Hello, world!",
+        "payloadType": "str",
+        "x": 150,
+        "y": 180,
+        "wires": [
+            [
+                "31de9e6a6c608d74"
+            ]
+        ]
+    },
+    {
+        "id": "dd75a5a1594ea2e9",
+        "type": "debug",
+        "z": "ea2d1ad1ea168d31",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "31de9e6a6c608d74",
+        "type": "function",
+        "z": "ea2d1ad1ea168d31",
+        "name": "Add time to msg",
+        "func": "var dateNow = new Date();\nvar timeAsString = dateNow.toLocaleTimeString();\n\nmsg.payload = msg.payload +\n                ' The time is ' +\n                timeAsString + '.';\n                \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 180,
+        "wires": [
+            [
+                "dd75a5a1594ea2e9",
+                "b7a173babf17b4df"
+            ]
+        ]
+    },
+    {
+        "id": "b7a173babf17b4df",
+        "type": "mqtt out",
+        "z": "ea2d1ad1ea168d31",
+        "name": "MQTT out",
+        "topic": "TopicoEquipo5",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "5be7aaa95006a637",
+        "x": 740,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "ccf8a856ee4b20e9",
+        "type": "mqtt in",
+        "z": "ea2d1ad1ea168d31",
+        "name": "MQTT in",
+        "topic": "TopicoEquipo5",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5be7aaa95006a637",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 440,
+        "wires": [
+            [
+                "c76bdc078df532da"
+            ]
+        ]
+    },
+    {
+        "id": "4e44b8df67ec8740",
+        "type": "debug",
+        "z": "ea2d1ad1ea168d31",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "c76bdc078df532da",
+        "type": "function",
+        "z": "ea2d1ad1ea168d31",
+        "name": "",
+        "func": "msg.payload = 'Node-RED [' + msg.payload + ']';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 440,
+        "wires": [
+            [
+                "4e44b8df67ec8740"
+            ]
+        ]
+    },
+    {
+        "id": "5be7aaa95006a637",
+        "type": "mqtt-broker",
+        "name": "MQTT 01",
+        "broker": "broker.mqtt-dashboard.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    }
+]
