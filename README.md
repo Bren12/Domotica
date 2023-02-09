@@ -1,10 +1,15 @@
-# Domotica
+# Domotica 🏠
 
 Source code developed for the final project of the course TC1004B.
 
 **Course:** TC1004B (Implementation of the IoT) <br>
-**Developed by:** [Brenda Saucedo](https://github.com/Bren12) <br>
 **Semester:** AD21
+
+**Developed by:** 
+* [Eduardo Valerin](https://github.com/EduValerin13)
+* [Brenda Saucedo](https://github.com/Bren12) <br>
+* Karen Rodríguez
+* Alejandro Treviño <br>
 
 ## Project Description
 
