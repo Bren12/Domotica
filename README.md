@@ -3,6 +3,8 @@
 Source code developed for the final project of the course TC1004B.
 
 **Course:** TC1004B (Implementation of the IoT) <br>
+**Platform/Technology:** Arduino IDE, phpMyAdmin, Node-RED, Broker MQTT <br>
+**Language:** SQL, C++, JavaScript <br>
 **Semester:** AD21
 
 **Developed by:** 
